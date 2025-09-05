@@ -222,16 +222,24 @@ p {
 margin: 0;
 }
 @media (max-width: 768px) {
-  /*.nav-links {
+  .nav-links {
     display: none;
-  }*/
+  }
+  .hideOnMobile {
+    display: none;
+  }
   .mail { display: none;  }
   .hero h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .hero p {
     font-size: 1.1rem;
+  }
+  .featurestag {
+    font-size: 50px !important;
+    margin-top: 10px !important;
+    margin-bottom: -50px !important;
   }
 
   .features h2,
