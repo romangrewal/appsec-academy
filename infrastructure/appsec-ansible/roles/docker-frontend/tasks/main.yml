@@ -1,0 +1,34 @@
+- name: Deploy Frontend
+  block:
+    - name: Ensure Podman is installed
+      ansible.builtin.package:
+        name: podman
+        state: present
+    
+    - name: Log in to the private Docker registry
+      containers.podman.podman_login:
+        registry: "https://registry.hq.appsecacademy.tech"
+        username: admin
+        password: Tyqvwfz176
+
+    - name: Pull the Frontend Docker image
+      containers.podman.podman_image:
+        name: registry.hq.appsecacademy.tech/frontend:latest # Using the official Docker Registry image
+        state: present
+    - name: Create a Podman network
+      containers.podman.podman_network:
+        name: web_net
+        state: present
+
+    - name: Run the Frontend Docker container
+      containers.podman.podman_container:
+        name: frontend
+        image: registry.hq.appsecacademy.tech/frontend:latest
+        state: started
+        detach: true
+        network: web_net
+        exposed_ports:
+          - 8080
+        ports:
+          - "8080:8080"
+        restart_policy: always
